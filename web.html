@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Культура Удмуртии</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --card: #1a1a26;
+      --border: #2a2a3a;
+      --accent: #c8a96e;
+      --accent2: #7b6b8d;
+      --text: #e8e4dc;
+      --muted: #7a7a8a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      padding: 80px 40px 60px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% -10%, rgba(200,169,110,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(123,107,141,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(200,169,110,0.3);
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(28px, 5vw, 56px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* FILTER */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 24px 40px;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(200,169,110,0.08);
+    }
+
+    /* GALLERY */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 0 40px 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(200,169,110,0.4);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-media {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      background: var(--surface);
+    }
+
+    .card-audio {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a26, #12121a);
+      gap: 12px;
+    }
+
+    .audio-icon {
+      font-size: 48px;
+      opacity: 0.6;
+    }
+
+    .audio-wave {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      height: 30px;
+    }
+
+    .audio-wave span {
+      width: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      animation: wave 1s ease-in-out infinite;
+    }
+
+    .audio-wave span:nth-child(1) { height: 10px; animation-delay: 0s; }
+    .audio-wave span:nth-child(2) { height: 20px; animation-delay: 0.1s; }
+    .audio-wave span:nth-child(3) { height: 28px; animation-delay: 0.2s; }
+    .audio-wave span:nth-child(4) { height: 20px; animation-delay: 0.3s; }
+    .audio-wave span:nth-child(5) { height: 12px; animation-delay: 0.4s; }
+
+    @keyframes wave {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.4); }
+    }
+
+    .card-body {
+      padding: 16px;
+    }
+
+    .card-type {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-family: 'Unbounded', sans-serif;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-date {
+      font-size: 11px;
+      color: var(--border);
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    /* EMPTY STATE */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+    }
+
+    .empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty h3 { font-family: 'Unbounded', sans-serif; font-size: 16px; margin-bottom: 8px; color: var(--text); }
+
+    /* LOADING */
+    .loading {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      padding: 80px;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 780px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.95);
+      transition: transform 0.3s;
+    }
+
+    .modal-overlay.open .modal {
+      transform: scale(1);
+    }
+
+    .modal-media-wrap {
+      width: 100%;
+      background: var(--surface);
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+    }
+
+    .modal-media-wrap img,
+    .modal-media-wrap video {
+      width: 100%;
+      max-height: 480px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .modal-audio-wrap {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      background: linear-gradient(135deg, #1a1a26, #0a0a0f);
+    }
+
+    .modal-audio-icon { font-size: 64px; }
+
+    .modal-audio-wrap audio {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .modal-body {
+      padding: 28px;
+    }
+
+    .modal-type {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: 'Unbounded', sans-serif;
+      margin-bottom: 12px;
+    }
+
+    .modal-desc {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .modal-desc.empty-desc {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .modal-date {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 60px 20px 40px; }
+      .gallery { padding: 0 16px 40px; gap: 12px; }
+      .filter-bar { padding: 16px; flex-wrap: wrap; }
+      .stats-bar { gap: 20px; padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="hero-tag">Цифровой архив</div>
+    <h1>Культура Удмуртии</h1>
+    <p>Сохраняем культурное наследие Удмуртии в цифровом пространстве - фото, видео и аудио материалы.</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num" id="count-photo">—</div>
+      <div class="stat-label">Фото</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="count-video">—</div>
+      <div class="stat-label">Видео</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="count-audio">—</div>
+      <div class="stat-label">Аудио</div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterGallery('all', this)">Все</button>
+    <button class="filter-btn" onclick="filterGallery('photo', this)">Фото</button>
+    <button class="filter-btn" onclick="filterGallery('video', this)">Видео</button>
+    <button class="filter-btn" onclick="filterGallery('audio', this)">Аудио</button>
+  </div>
+
+  <div class="gallery" id="gallery">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+    <div class="modal" id="modal-inner">
+      <div id="modal-media"></div>
+      <div class="modal-body">
+        <div class="modal-type" id="modal-type"></div>
+        <div class="modal-desc" id="modal-desc"></div>
+        <div class="modal-date" id="modal-date"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== НАСТРОЙКИ ======
+    const SUPABASE_URL = 'https://wvefhluawpggyesscajs.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2ZWZobHVhd3BnZ3llc3NjYWpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NDI3MjMsImV4cCI6MjA5NDUxODcyM30.0wQ-Alvfj-gcASjhtkt7vCmy1o-66N6uwu7DvGTBFug';
+    // =======================
+
+    let allMaterials = [];
+    let currentFilter = 'all';
+
+    async function loadMaterials() {
+      try {
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/materials?status=eq.approved&order=created_at.desc`,
+          { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+        );
+        allMaterials = await res.json();
+        updateStats();
+        renderGallery(allMaterials);
+      } catch (e) {
+        document.getElementById('gallery').innerHTML =
+          '<div class="empty"><div class="empty-icon">⚠️</div><h3>Ошибка загрузки</h3><p>Проверьте подключение к интернету</p></div>';
+      }
+    }
+
+    function updateStats() {
+      document.getElementById('count-photo').textContent = allMaterials.filter(m => m.file_type === 'photo').length;
+      document.getElementById('count-video').textContent = allMaterials.filter(m => m.file_type === 'video').length;
+      document.getElementById('count-audio').textContent = allMaterials.filter(m => m.file_type === 'audio').length;
+    }
+
+    function filterGallery(type, btn) {
+      currentFilter = type;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filtered = type === 'all' ? allMaterials : allMaterials.filter(m => m.file_type === type);
+      renderGallery(filtered);
+    }
+
+    function renderGallery(items) {
+      const gallery = document.getElementById('gallery');
+      if (!items.length) {
+        gallery.innerHTML = '<div class="empty"><div class="empty-icon">🏛️</div><h3>Материалов пока нет</h3><p>Они появятся после проверки</p></div>';
+        return;
+      }
+
+      gallery.innerHTML = items.map((item, i) => `
+        <div class="card" onclick="openModal(${allMaterials.indexOf(item)})" style="animation-delay:${i * 0.05}s">
+          ${mediaPreview(item)}
+          <div class="card-body">
+            <div class="card-type">${typeLabel(item.file_type)}</div>
+            <div class="card-desc">${item.description || '<em>Без описания</em>'}</div>
+            <div class="card-date">${formatDate(item.created_at)}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function mediaPreview(item) {
+      if (item.file_type === 'photo') {
+        return `<img class="card-media" src="${item.file_url}" alt="Фото" loading="lazy" onerror="this.style.background='#1a1a26'" />`;
+      } else if (item.file_type === 'video') {
+        return `<video class="card-media" src="${item.file_url}" preload="metadata"></video>`;
+      } else {
+        return `<div class="card-audio">
+          <div class="audio-icon">🎵</div>
+          <div class="audio-wave">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>`;
+      }
+    }
+
+    function typeLabel(type) {
+      return { photo: 'Фотография', video: 'Видео', audio: 'Аудио' }[type] || type;
+    }
+
+    function formatDate(str) {
+      return new Date(str).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function openModal(index) {
+      const item = allMaterials[index];
+      const mediaDiv = document.getElementById('modal-media');
+
+      if (item.file_type === 'photo') {
+        mediaDiv.className = 'modal-media-wrap';
+        mediaDiv.innerHTML = `<img src="${item.file_url}" alt="Фото" />`;
+      } else if (item.file_type === 'video') {
+        mediaDiv.className = 'modal-media-wrap';
+        mediaDiv.innerHTML = `<video src="${item.file_url}" controls></video>`;
+      } else {
+        mediaDiv.className = 'modal-audio-wrap';
+        mediaDiv.innerHTML = `<div class="modal-audio-icon">🎵</div><audio src="${item.file_url}" controls></audio>`;
+      }
+
+      document.getElementById('modal-type').textContent = typeLabel(item.file_type);
+      const descEl = document.getElementById('modal-desc');
+      if (item.description) {
+        descEl.textContent = item.description;
+        descEl.className = 'modal-desc';
+      } else {
+        descEl.textContent = 'Описание не добавлено';
+        descEl.className = 'modal-desc empty-desc';
+      }
+      document.getElementById('modal-date').textContent = formatDate(item.created_at);
+
+      document.getElementById('modal').classList.add('open');
+    }
+
+    function closeModal(e) {
+      if (e.target === document.getElementById('modal')) {
+        document.getElementById('modal').classList.remove('open');
+        document.getElementById('modal-media').innerHTML = '';
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.getElementById('modal').classList.remove('open');
+        document.getElementById('modal-media').innerHTML = '';
+      }
+    });
+
+    loadMaterials();
+  </script>
+</body>
+</html>
