@@ -7,14 +7,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --card: #1a1a26;
-      --border: #2a2a3a;
-      --accent: #c8a96e;
-      --accent2: #7b6b8d;
-      --text: #e8e4dc;
-      --muted: #7a7a8a;
+      --bg: #ffffff;
+      --surface: #f5f5f5;
+      --card: #ffffff;
+      --border: #e0e0e0;
+      --accent: #cc0000;
+      --accent2: #990000;
+      --text: #1a1a1a;
+      --muted: #666666;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,6 +25,26 @@
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
+    }
+
+    .hero-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .udmurt-star {
+      width: 70px;
+      height: 70px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 8px rgba(204,0,0,0.3));
+    }
+
+    @media (max-width: 600px) {
+      .udmurt-star { width: 40px; height: 40px; }
+      .hero-title-row { gap: 12px; }
     }
 
     /* HERO */
@@ -41,8 +61,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 50% -10%, rgba(200,169,110,0.15) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(123,107,141,0.1) 0%, transparent 60%);
+        radial-gradient(ellipse 60% 50% at 50% -10%, rgba(204,0,0,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(150,0,0,0.05) 0%, transparent 60%);
       pointer-events: none;
     }
 
@@ -53,7 +73,7 @@
       letter-spacing: 4px;
       text-transform: uppercase;
       color: var(--accent);
-      border: 1px solid rgba(200,169,110,0.3);
+      border: 1px solid rgba(204,0,0,0.4);
       padding: 6px 16px;
       border-radius: 20px;
       margin-bottom: 28px;
@@ -65,7 +85,7 @@
       font-weight: 900;
       line-height: 1.1;
       letter-spacing: -1px;
-      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+      background: linear-gradient(135deg, #1a1a1a 0%, #cc0000 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -160,8 +180,8 @@
 
     .card:hover {
       transform: translateY(-4px);
-      border-color: rgba(200,169,110,0.4);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      border-color: rgba(204,0,0,0.5);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
     @keyframes fadeUp {
@@ -396,8 +416,12 @@
 
   <div class="hero">
     <div class="hero-tag">Цифровой архив</div>
-    <h1>Культура Удмуртии</h1>
-    <p>Сохраняем культурное наследие Удмуртии в цифровом пространстве - фото, видео и аудио материалы.</p>
+    <div class="hero-title-row">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Udmurt_symbol.png" class="udmurt-star" alt="Герб Удмуртии" />
+      <h1>Культура Удмуртии</h1>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Udmurt_symbol.png" class="udmurt-star" alt="Герб Удмуртии" />
+    </div>
+    <p>Сохраняем культурное наследие Удмуртии в цифровом пространстве — фото, видео и аудио материалы.</p>
   </div>
 
   <div class="stats-bar">
@@ -489,7 +513,6 @@
           <div class="card-body">
             <div class="card-type">${typeLabel(item.file_type)}</div>
             <div class="card-desc">${item.description || '<em>Без описания</em>'}</div>
-            <div class="card-date">${formatDate(item.created_at)}</div>
           </div>
         </div>
       `).join('');
@@ -534,16 +557,13 @@
       }
 
       document.getElementById('modal-type').textContent = typeLabel(item.file_type);
-      const descEl = document.getElementById('modal-desc');
-      if (item.description) {
+      const descEl = document.getElementById('modal-desc');      if (item.description) {
         descEl.textContent = item.description;
         descEl.className = 'modal-desc';
       } else {
         descEl.textContent = 'Описание не добавлено';
         descEl.className = 'modal-desc empty-desc';
       }
-      document.getElementById('modal-date').textContent = formatDate(item.created_at);
-
       document.getElementById('modal').classList.add('open');
     }
 
